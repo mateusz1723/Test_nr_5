@@ -3,7 +3,7 @@ package pl.kurs.figures.models;
 public class Square extends Shape {
 
     private static Square INSTANCE;
-    private ShapeType shapeType;
+    private ShapeType shapeType = ShapeType.SQUARE;
     private double sideLength;
 
     private Square(double sideLength) {
@@ -18,7 +18,7 @@ public class Square extends Shape {
     }
 
     public ShapeType getShapeType() {
-        return shapeType = ShapeType.SQUARE;
+        return shapeType;
     }
 
     public double getSideLength() {
@@ -27,7 +27,7 @@ public class Square extends Shape {
 
     @Override
     public String toString() {
-        return "Square{" +
+        return "{" +
                 "shapeType=" + shapeType +
                 ", sideLength=" + sideLength +
                 '}';

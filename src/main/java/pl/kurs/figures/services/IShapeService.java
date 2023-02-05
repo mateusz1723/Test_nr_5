@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface IShapeService {
 
-    Shape findShapeWithTheBiggestArea(List<Shape> shapes);
-    Shape findShapeWithTheBiggestPerimeter(List<Shape> shapes, ShapeType shapeType);
+    Shape findShapeWithTheBiggestArea(List<Shape> shapes) throws InvalidInputException;
+    Shape findShapeWithTheBiggestPerimeterOnType(List<Shape> shapes, ShapeType shapeType) throws InvalidInputException;
     void exportToJson(List<Shape> shapes, String path) throws InvalidInputException, IOException;
     List<Shape> importFromJson(String path) throws InvalidInputException, IOException;
 

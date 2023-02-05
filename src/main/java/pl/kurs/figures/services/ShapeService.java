@@ -10,30 +10,34 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ShapeService implements IShapeService{
+public class ShapeService implements IShapeService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public Shape findShapeWithTheBiggestArea(List<Shape> shapes) {
+    public Shape findShapeWithTheBiggestArea(List<Shape> shapes) throws InvalidInputException {
         return Optional.ofNullable(shapes)
                 .orElseGet(Collections::emptyList)
                 .stream()
                 .filter(Objects::nonNull)
                 .max(Comparator.comparingDouble(x -> x.calculateArea()))
-                .orElseThrow();
+                .orElseThrow(() -> new InvalidInputException("Nie znaleziono figury"));
 
     }
 
     @Override
-    public Shape findShapeWithTheBiggestPerimeter(List<Shape> shapes, ShapeType type) {
-       return Optional.ofNullable(shapes)
+    public Shape findShapeWithTheBiggestPerimeterOnType(List<Shape> shapes, ShapeType type) throws InvalidInputException {
+        if (type == null)
+            throw new InvalidInputException("Nie znaleziono figury");
+
+
+        return Optional.ofNullable(shapes)
                 .orElseGet(Collections::emptyList)
                 .stream()
                 .filter(Objects::nonNull)
                 .filter(x -> x.getShapeType().getName().equals(type.getName()))
                 .max(Comparator.comparingDouble(x -> x.calculatePerimeter()))
-                .orElseThrow();
+                .orElseThrow(() -> new InvalidInputException("Nie znaleziono figury"));
 
     }
 
