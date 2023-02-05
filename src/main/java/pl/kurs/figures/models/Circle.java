@@ -3,7 +3,7 @@ package pl.kurs.figures.models;
 public class Circle extends Shape {
 
     private static Circle INSTANCE;
-    private ShapeType shapeType;
+    private ShapeType shapeType = ShapeType.CIRCLE;
     private double radius;
 
     private Circle(double radius) {
@@ -18,7 +18,7 @@ public class Circle extends Shape {
     }
 
     public ShapeType getShapeType() {
-        return shapeType = ShapeType.CIRCLE;
+        return shapeType;
     }
 
     public double getRadius() {
@@ -27,7 +27,7 @@ public class Circle extends Shape {
 
     @Override
     public String toString() {
-        return "Circle{" +
+        return "{" +
                 "shapeType=" + shapeType +
                 ", radius=" + radius +
                 '}';

@@ -23,7 +23,7 @@ public class ShapeFactory implements IShapeFactory {
 
     @Override
     public Rectangle createRectangle(double width, double height) throws InvalidInputException {
-        if (width <= 0 && height <= 0)
+        if (width <= 0 || height <= 0)
             throw new InvalidInputException("Wartosci nie moga byc mniejsze niz 0");
         return Rectangle.getInstance(width, height);
     }

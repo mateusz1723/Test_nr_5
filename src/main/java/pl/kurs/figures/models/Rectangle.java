@@ -3,7 +3,7 @@ package pl.kurs.figures.models;
 public class Rectangle extends Shape {
 
     private static Rectangle INSTANCE;
-    private ShapeType shapeType;
+    private ShapeType shapeType = ShapeType.RECTANGLE;
     private double width;
     private double height;
 
@@ -12,15 +12,15 @@ public class Rectangle extends Shape {
         this.height = height;
     }
 
-    public static Rectangle getInstance(double h, double w) {
-        if (INSTANCE == null || (INSTANCE.height != h && INSTANCE.width != w))
+    public static Rectangle getInstance(double w, double h) {
+        if (INSTANCE == null || INSTANCE.height != h || INSTANCE.width != w)
             INSTANCE = new Rectangle(w, h);
 
         return INSTANCE;
     }
 
     public ShapeType getShapeType() {
-        return shapeType = ShapeType.RECTANGLE;
+        return shapeType;
     }
 
     public double getWidth() {
@@ -33,7 +33,7 @@ public class Rectangle extends Shape {
 
     @Override
     public String toString() {
-        return "Rectangle{" +
+        return "{" +
                 "shapeType=" + shapeType +
                 ", width=" + width +
                 ", height=" + height +
