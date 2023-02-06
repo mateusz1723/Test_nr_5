@@ -24,26 +24,29 @@ public class ShapeFactoryTest {
     @Test
     public void shouldReturnTrueWhileCircle1EqualsCircle2() throws InvalidInputException {
         Circle circle1 = shapeFactory.createCircle(10);
-        Circle circle2 = shapeFactory.createCircle(10);
+        Circle circle2 = shapeFactory.createCircle(12);
+        Circle circle3 = shapeFactory.createCircle(10);
 
-        assertTrue(circle1.equals(circle2));
+        assertTrue(circle1.equals(circle3));
     }
 
     @Test
     public void shouldReturnTrueWhileSquare1EqualsSquare2() throws InvalidInputException {
         Square square1 = shapeFactory.createSquare(10);
-        Square square2 = shapeFactory.createSquare(10);
+        Square square2 = shapeFactory.createSquare(12);
+        Square square3 = shapeFactory.createSquare(10);
 
-        assertTrue(square1.equals(square2));
+        assertTrue(square1.equals(square3));
     }
 
 
     @Test
     public void shouldReturnTrueWhileRectangle1EqualsRectangle2() throws InvalidInputException {
         Rectangle rectangle1 = shapeFactory.createRectangle(10, 15);
-        Rectangle rectangle2 = shapeFactory.createRectangle(10, 15);
+        Rectangle rectangle2 = shapeFactory.createRectangle(15, 14);
+        Rectangle rectangle3 = shapeFactory.createRectangle(10, 15);
 
-        assertTrue(rectangle1.equals(rectangle2));
+        assertTrue(rectangle1.equals(rectangle3));
     }
 
 

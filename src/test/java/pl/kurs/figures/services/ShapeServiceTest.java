@@ -80,8 +80,6 @@ public class ShapeServiceTest {
         //when
         List list = objectMapper.readValue(new File("src/test/java/resources/shapes.json"), List.class);
         //then
-        System.out.println(shapes.toString());
-        System.out.println(list.toString());
         assertEquals(shapes.toString(), list.toString());
 
     }
