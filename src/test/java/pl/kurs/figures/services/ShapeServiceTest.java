@@ -76,9 +76,9 @@ public class ShapeServiceTest {
     @Test
     public void shouldExportListOfShapesToJson() throws InvalidInputException, IOException {
         //given
-        shapeService.exportToJson(shapes, "src/test/java/resources/shapes.json");
+        shapeService.exportToJson(shapes, "src/test/resources/shapes.json");
         //when
-        List list = objectMapper.readValue(new File("src/test/java/resources/shapes.json"), List.class);
+        List list = objectMapper.readValue(new File("src/test/resources/shapes.json"), List.class);
         //then
         assertEquals(shapes.toString(), list.toString());
 
@@ -87,9 +87,9 @@ public class ShapeServiceTest {
     @Test
     public void shouldImportFileToListOfShapes() throws InvalidInputException, IOException {
         //given
-        objectMapper.writeValue(new File("src/test/java/resources/shapes3.json"), shapes);
+        objectMapper.writeValue(new File("src/test/resources/shapes3.json"), shapes);
         //when
-        List<Shape> shapes = shapeService.importFromJson("src/test/java/resources/shapes3.json");
+        List<Shape> shapes = shapeService.importFromJson("src/test/resources/shapes3.json");
         //then
         assertNotNull(shapes);
 
