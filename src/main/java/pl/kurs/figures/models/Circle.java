@@ -1,20 +1,18 @@
 package pl.kurs.figures.models;
 
-public class Circle extends Shape {
 
-    private static Circle INSTANCE;
-    private ShapeType shapeType = ShapeType.CIRCLE;
-    private double radius;
+
+public final class Circle extends Shape {
+
+    private final ShapeType shapeType = ShapeType.CIRCLE;
+    private final double radius;
 
     private Circle(double radius) {
         this.radius = radius;
     }
 
-    public static Circle getInstance(double r) {
-        if (INSTANCE == null || INSTANCE.radius != r)
-            INSTANCE = new Circle(r);
-
-        return INSTANCE;
+    public static Circle getCircle(double radius){
+        return new Circle(radius);
     }
 
     public ShapeType getShapeType() {

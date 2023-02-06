@@ -1,22 +1,18 @@
 package pl.kurs.figures.models;
 
-public class Rectangle extends Shape {
+public final class Rectangle extends Shape {
 
-    private static Rectangle INSTANCE;
-    private ShapeType shapeType = ShapeType.RECTANGLE;
-    private double width;
-    private double height;
+    private final ShapeType shapeType = ShapeType.RECTANGLE;
+    private final double width;
+    private final double height;
 
     private Rectangle(double width, double height) {
         this.width = width;
         this.height = height;
     }
 
-    public static Rectangle getInstance(double w, double h) {
-        if (INSTANCE == null || INSTANCE.height != h || INSTANCE.width != w)
-            INSTANCE = new Rectangle(w, h);
-
-        return INSTANCE;
+    public static Rectangle getRectangle(double width, double height){
+        return new Rectangle(width, height);
     }
 
     public ShapeType getShapeType() {
