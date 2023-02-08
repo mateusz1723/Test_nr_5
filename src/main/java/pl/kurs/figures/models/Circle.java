@@ -1,7 +1,5 @@
 package pl.kurs.figures.models;
 
-
-
 public final class Circle extends Shape {
 
     private final ShapeType shapeType = ShapeType.CIRCLE;
@@ -23,13 +21,6 @@ public final class Circle extends Shape {
         return radius;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "shapeType=" + shapeType +
-                ", radius=" + radius +
-                '}';
-    }
 
     @Override
     public double calculatePerimeter() {

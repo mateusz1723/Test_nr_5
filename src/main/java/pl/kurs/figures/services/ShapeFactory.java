@@ -3,30 +3,25 @@ package pl.kurs.figures.services;
 import pl.kurs.figures.exceptions.InvalidInputException;
 import pl.kurs.figures.models.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class ShapeFactory implements IShapeFactory {
 
-    private List<Circle> circleCache = new ArrayList<>();
-    private List<Square> squareCache = new ArrayList<>();
-    private List<Rectangle> rectangleCache = new ArrayList<>();
-
+    private Map<Double, Circle> circleCache = new LinkedHashMap<>();
+    private Map<Double, Square> squareCache = new LinkedHashMap<>();
+    private Map<MultiKey, Rectangle> rectangleCache = new LinkedHashMap<>();
 
 
     @Override
     public Square createSquare(double sideLength) throws InvalidInputException {
         if (sideLength <= 0)
             throw new InvalidInputException("Wartosc nie moze byc mniejsza niz 0");
-        if (squareCache.isEmpty() || squareCache.stream().noneMatch(x -> x.getSideLength() == sideLength)) {
+        if (squareCache.isEmpty() || !squareCache.containsKey(sideLength)) {
             Square newSquare = Square.getSquare(sideLength);
-            squareCache.add(newSquare);
+            squareCache.put(newSquare.getSideLength(), newSquare);
             return newSquare;
         } else
-            return squareCache.stream().filter(x -> x.getSideLength() == sideLength).findFirst().orElseThrow();
+            return squareCache.get(sideLength);
 
     }
 
@@ -34,25 +29,26 @@ public class ShapeFactory implements IShapeFactory {
     public Circle createCircle(double radius) throws InvalidInputException {
         if (radius <= 0)
             throw new InvalidInputException("Wartosc nie moze byc mniejsza niz 0");
-        if (circleCache.isEmpty() || circleCache.stream().noneMatch(x -> x.getRadius() == radius)) {
+        if (circleCache.isEmpty() || !circleCache.containsKey(radius)) {
             Circle newCircle = Circle.getCircle(radius);
-            circleCache.add(newCircle);
+            circleCache.put(newCircle.getRadius(), newCircle);
             return newCircle;
         } else
-            return circleCache.stream().filter(x -> x.getRadius() == radius).findFirst().orElseThrow();
+            return circleCache.get(radius);
 
     }
 
     @Override
     public Rectangle createRectangle(double width, double height) throws InvalidInputException {
+        MultiKey keys = new MultiKey(width, height);
         if (width <= 0 || height <= 0)
             throw new InvalidInputException("Wartosci nie moga byc mniejsze niz 0");
-        if (rectangleCache.isEmpty() || rectangleCache.stream().noneMatch(x -> x.getWidth() == width && x.getHeight() == height)) {
+        if (rectangleCache.isEmpty() || !rectangleCache.containsKey(keys)) {
             Rectangle newRectangle = Rectangle.getRectangle(width, height);
-            rectangleCache.add(newRectangle);
+            rectangleCache.put(new MultiKey(newRectangle.getWidth(), newRectangle.getHeight()), newRectangle);
             return newRectangle;
         } else
-            return rectangleCache.stream().filter(x -> x.getWidth() == width && x.getHeight() == height).findFirst().orElseThrow();
+            return rectangleCache.get(keys);
     }
 
 }
