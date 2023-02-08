@@ -1,5 +1,8 @@
 package pl.kurs.figures.services;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.TreeNode;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -76,23 +80,37 @@ public class ShapeServiceTest {
     @Test
     public void shouldExportListOfShapesToJson() throws InvalidInputException, IOException {
         //given
-        shapeService.exportToJson(shapes, "src/test/resources/shapes.json");
+        List<Shape> shapeList = new ArrayList<>();
+        shapeList.add(shapeFactory.createCircle(12));
+        shapeList.add(shapeFactory.createCircle(14));
+        shapeService.exportToJson(shapeList, "src/test/resources/shapes.json");
         //when
-        List list = objectMapper.readValue(new File("src/test/resources/shapes.json"), List.class);
+        JsonNode shapesNode = objectMapper.readTree(new File("src/test/resources/shapes.json"));
         //then
-        assertEquals(shapes.toString(), list.toString());
+        assertEquals(shapesNode.get(0).get("shapeType").asText(), ShapeType.CIRCLE.toString());
+        assertEquals(shapesNode.get(0).get("radius").asDouble(), 12, 0);
 
+        assertEquals(shapesNode.get(1).get("shapeType").asText(), ShapeType.CIRCLE.toString());
+        assertEquals(shapesNode.get(1).get("radius").asDouble(), 14, 0);
     }
 
     @Test
     public void shouldImportFileToListOfShapes() throws InvalidInputException, IOException {
         //given
-        objectMapper.writeValue(new File("src/test/resources/shapes3.json"), shapes);
+        List<Shape> shapeList = new ArrayList<>();
+        shapeList.add(shapeFactory.createSquare(12));
+        shapeList.add(shapeFactory.createRectangle(14, 15));
+        objectMapper.writeValue(new File("src/test/resources/shapes3.json"), shapeList);
         //when
-        List<Shape> shapes = shapeService.importFromJson("src/test/resources/shapes3.json");
+        List<Shape> importShapes = shapeService.importFromJson("src/test/resources/shapes3.json");
+        JsonNode importShapesNode = objectMapper.valueToTree(importShapes);
         //then
-        assertNotNull(shapes);
+        assertEquals(importShapesNode.get(0).get("shapeType").asText(), ShapeType.SQUARE.toString());
+        assertEquals(importShapesNode.get(0).get("sideLength").asDouble(), 12d , 0);
 
+        assertEquals(importShapesNode.get(1).get("shapeType").asText(), ShapeType.RECTANGLE.toString());
+        assertEquals(importShapesNode.get(1).get("width").asDouble(), 14d , 0);
+        assertEquals(importShapesNode.get(1).get("height").asDouble(), 15d , 0);
     }
 
     @Test

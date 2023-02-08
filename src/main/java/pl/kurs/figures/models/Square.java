@@ -21,13 +21,6 @@ public final class Square extends Shape {
         return sideLength;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "shapeType=" + shapeType +
-                ", sideLength=" + sideLength +
-                '}';
-    }
 
     @Override
     public double calculatePerimeter() {

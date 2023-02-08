@@ -28,15 +28,6 @@ public final class Rectangle extends Shape {
     }
 
     @Override
-    public String toString() {
-        return "{" +
-                "shapeType=" + shapeType +
-                ", width=" + width +
-                ", height=" + height +
-                '}';
-    }
-
-    @Override
     public double calculatePerimeter() {
         return 2 * width + 2 * height;
     }
